@@ -86,13 +86,26 @@ export default createReactClass({
       <div className="user-list" {...forwardProps(this)}>
         {people && (
           <div className="list">
-            <h1>people <span className="user-counter">({humanUniqueCount}{humanDuplicateCount ? '(+' + humanDuplicateCount + ')' : ''}{humanLurkerCount ? '+' + humanLurkerCount : ''})</span></h1>
+            <h1>people <span
+              className="user-counter"
+              title={
+                humanUniqueCount + ' people' +
+                (humanDuplicateCount ? ' (with ' + humanDuplicateCount + ' duplicates)' : '') +
+                (humanLurkerCount ? ' and ' + humanLurkerCount + ' lurkers' : '')
+              }
+            >({humanUniqueCount}{humanDuplicateCount ? '(+' + humanDuplicateCount + ')' : ''}{humanLurkerCount ? '+' + humanLurkerCount : ''})</span></h1>
             {people.map(formatUser).toIndexedSeq()}
           </div>
         )}
         {bots && (
           <div className="list">
-            <h1>bots <span className="user-counter">({botCount}{botLurkerCount ? '+' + botLurkerCount : ''})</span></h1>
+            <h1>bots <span
+              className="user-counter"
+              title={
+                botCount + ' bots' +
+                (botLurkerCount ? ' and ' + botLurkerCount + ' bot lurkers' : '')
+              }
+            >({botCount}{botLurkerCount ? '+' + botLurkerCount : ''})</span></h1>
             {bots.map(formatUser).toIndexedSeq()}
           </div>
         )}
