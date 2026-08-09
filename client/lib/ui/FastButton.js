@@ -14,6 +14,7 @@ export default createReactClass({
     vibrate: PropTypes.bool,
     disabled: PropTypes.bool,
     accessKey: PropTypes.string,
+    respectTab: PropTypes.bool,
     fastTouch: PropTypes.bool,
     empty: PropTypes.bool,
     onClick: PropTypes.func,
@@ -61,7 +62,7 @@ export default createReactClass({
   },
 
   onKeyDown(ev) {
-    if (ev.key === 'Enter' || ev.key === 'Space') {
+    if ((ev.key === 'Enter' || ev.key === 'Space') && !(this.props.respectTab && Heim.tabPressed)) {
       if (this.props.onClick(ev) !== false) {
         ev.preventDefault()
         ev.stopPropagation()

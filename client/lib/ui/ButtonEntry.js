@@ -53,7 +53,7 @@ export default createReactClass({
     const focused = this.props.focused
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
-    let ret = <FastButton ref="button" component="div" className={classNames(this.props.className, {'focus-target': focused})} tabIndex={0} onClick={this.onClick}>
+    let ret = <FastButton ref="button" component="div" className={classNames(this.props.className, {'focus-target': focused})} respectTab tabIndex={0} onClick={this.onClick}>
       {this.props.children}
       {focused && <div className="spacer"><EntryDragHandle pane={this.props.pane} /></div>}
     </FastButton>
