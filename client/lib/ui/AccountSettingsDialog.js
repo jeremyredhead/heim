@@ -108,7 +108,7 @@ export default createReactClass({
             <div className="action-line">
               <div className="spacer" />
               <button type="button" tabIndex="3" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="2" className="register major-action">change <span className="long">account </span>name</button>
+              <button type="submit" tabIndex="2" className="register major-action" autoFocus>change <span className="long">account </span>name</button>
             </div>
           </div>
         </Form>
@@ -142,7 +142,7 @@ export default createReactClass({
             <div className="action-line">
               <div className="spacer" />
               <button type="button" tabIndex="4" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="3" className="register major-action">change email<span className="long"> address</span></button>
+              <button type="submit" tabIndex="3" className="register major-action" autoFocus>change email<span className="long"> address</span></button>
             </div>
           </div>
         </Form>
@@ -155,7 +155,7 @@ export default createReactClass({
           <div className="notice">{flow.step === 'verify-email-sent' ? 'ok! we\'ve sent you a verification email.' : 'ok! we\'ve sent you a password reset email.'}</div>
           <div className="bottom">
             <div className="action-line centered">
-              <button type="button" tabIndex="1" className="continue major-action" onClick={accountSettingsFlow.openSettings}>continue</button>
+              <button type="button" tabIndex="1" className="continue major-action" onClick={accountSettingsFlow.openSettings} autoFocus>continue</button>
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default createReactClass({
                 }
               </div>
               <div className="spacer" />
-              <button type="button" tabIndex="1" className="major-secondary-action" onClick={this.openChangeName}>change<span className="long"> name</span></button>
+              <button type="button" tabIndex="1" className="major-secondary-action" onClick={this.openChangeName} autoFocus>change<span className="long"> name</span></button>
             </div>
           </FieldLabelContainer>
           <FieldLabelContainer label="email address">
