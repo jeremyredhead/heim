@@ -227,7 +227,7 @@ export default function clientRoom() {
         }
       }, false)
 
-      Heim.addEventListener(uidocument.body, 'keypress', (ev) => {
+      Heim.addEventListener(uiwindow, 'keypress', (ev) => {
         if (!uiwindow.getSelection().isCollapsed) {
           return
         }
@@ -249,14 +249,14 @@ export default function clientRoom() {
         }
       }, true)
 
-      Heim.addEventListener(uidocument.body, 'keydown', (originalEv) => {
+      Heim.addEventListener(uiwindow, 'keydown', (originalEv) => {
         Heim.activity.touch(roomName)
 
         // dig into React a little so it normalizes the event (namely ev.key).
         const ev = new SyntheticKeyboardEvent(null, null, originalEv, originalEv.target)
 
         // prevent backspace from navigating the page
-        if (ev.key === 'Backspace' && ev.target === uidocument.body) {
+        if (ev.key === 'Backspace' && ev.target === uiwindow) {
           ev.preventDefault()
         }
 
@@ -269,7 +269,7 @@ export default function clientRoom() {
         }
       }, false)
 
-      Heim.addEventListener(uidocument.body, 'keyup', (originalEv) => {
+      Heim.addEventListener(uiwindow, 'keyup', (originalEv) => {
         const ev = new SyntheticKeyboardEvent(null, null, originalEv)
         if (ev.key === 'Tab') {
           Heim.tabPressed = false
