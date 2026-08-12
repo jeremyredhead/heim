@@ -283,16 +283,16 @@ export default function clientRoom() {
       if (Heim.isTouch) {
         uidocument.body.classList.add('touch')
 
-        Heim.addEventListener(uidocument.body, 'touchstart', (ev) => {
+        Heim.addEventListener(uiwindow, 'touchstart', (ev) => {
           Heim.activity.touch(roomName)
           ev.target.classList.add('touching')
         }, false)
 
-        Heim.addEventListener(uidocument.body, 'touchend', (ev) => {
+        Heim.addEventListener(uiwindow, 'touchend', (ev) => {
           ev.target.classList.remove('touching')
         }, false)
       } else {
-        Heim.addEventListener(uidocument.body, 'mousedown', () => Heim.activity.touch(roomName), false)
+        Heim.addEventListener(uiwindow, 'mousedown', () => Heim.activity.touch(roomName), false)
       }
 
       Heim.setFavicon = _.partial(require('./util/setFavicon').default, uidocument)
