@@ -114,7 +114,7 @@ export default createReactClass({
     // prevent inertial scrolling of non-scrollable elements in Mobile Safari
     if (Heim.isiOS) {
       let el = ev.target
-      while (el && el !== uidocument.body) {
+      while (el && el !== uidocument) {
         if (el.classList.contains('top-bar')) {
           ev.preventDefault()
           return

@@ -14,11 +14,11 @@ module.exports = createReactClass({
   },
 
   componentWillMount() {
-    Heim.addEventListener(uidocument.body, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+    Heim.addEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
   },
 
   componentWillUnmount() {
-    Heim.removeEventListener(uidocument.body, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+    Heim.removeEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
   },
 
   onOutsideClick(ev) {
