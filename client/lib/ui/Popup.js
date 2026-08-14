@@ -8,12 +8,18 @@ module.exports = createReactClass({
   displayName: 'Popup',
 
   propTypes: {
+    kind: PropTypes.string,
     className: PropTypes.string,
     onDismiss: PropTypes.func,
     children: PropTypes.node,
   },
 
-  componentWillMount() {
+  componentDidMount() {
+    if (this.props.kind === 'native') {
+      ReactDOM.findDOMNode(this).show()
+    } else if (this.props.kind === 'native-modal') {
+      ReactDOM.findDOMNode(this).showModal()
+    }
     Heim.addEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
   },
 
@@ -28,10 +34,11 @@ module.exports = createReactClass({
   },
 
   render() {
-    return (
-      <div className={classNames('popup', this.props.className)}>
-        {this.props.children}
-      </div>
+    const isNative = this.props.kind === 'native' || this.props.kind === 'native-modal'
+    return React.createElement(
+      isNative ? 'dialog' : 'div',
+      {className: classNames('popup', isNative && 'native', this.props.className)},
+      this.props.children,
     )
   },
 })

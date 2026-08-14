@@ -2073,11 +2073,25 @@ iframe.js {
   flex-direction: column;
   width: 415px;
   padding: @dialog-padding;
+  border: none;
   margin: 5px;
   .dialog-shape();
   background: white;
   overflow: hidden;
   user-select: none;
+
+  &.native {
+    margin: auto;
+
+    &:not([open]) {
+      display: none;
+    }
+
+    &::backdrop {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 
   .spacer {
     flex: 1;
