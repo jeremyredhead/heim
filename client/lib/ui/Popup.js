@@ -20,7 +20,9 @@ module.exports = createReactClass({
     } else if (this.props.kind === 'native-modal') {
       ReactDOM.findDOMNode(this).showModal()
     }
-    Heim.addEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+    setImmediate(() => {
+      Heim.addEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+    })
   },
 
   componentWillUnmount() {
