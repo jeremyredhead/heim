@@ -8,19 +8,36 @@
   }
 }
 
-.touchable-bg(@bgcolor) {
+.touchable-bg-custom(@plain-bgcolor, @touch-bgcolor) {
   .touchable;
+  background: @plain-bgcolor;
 
   &.touching, body:not(.touch) &:active {
-    background: fade(darken(desaturate(@bgcolor, 15%), 45%), 50%);
+    background: @touch-bgcolor;
+  }
+
+  &:focus {
+    background: mix(@plain-bgcolor, @touch-bgcolor);
   }
 }
 
-.touchable-custom(@rules) {
+.bg-and-touchable(@plain-bgcolor) {
+  .touchable-bg-custom(@plain-bgcolor, fade(darken(desaturate(@plain-bgcolor, 15%), 45%), 50%));
+}
+
+.touchable-bg(@bgcolor) {
+  .touchable-bg-custom(transparent, fade(darken(desaturate(@bgcolor, 15%), 45%), 50%));
+}
+
+.touchable-custom(@rules, @focus-rules) {
   .touchable;
 
   &.touching, body:not(.touch) &:active {
     @rules();
+  }
+
+  &:focus {
+    @focus-rules();
   }
 }
 
@@ -110,6 +127,8 @@
     box-shadow: 0 0 2*@depth fade(black, 35%);
     transform: translateY((3/2) * @depth);
     transition-duration: .035s;
+  }, {
+    background: mix(@color, desaturate(darken(@color, 15%), 5%));
   });
 
   &:hover {

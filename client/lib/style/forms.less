@@ -12,17 +12,15 @@
   background-position: 0 1.1em;
   .touchable-custom({
     color: black;
+  }, {
+    color: mix(@color, black, 15%);
+    background: fade(@account-color, 20%);
+    border-radius: 3px;
   });
 
   transition: color .25s ease;
 
   .larger-target(10px, 10px);
-
-  &:focus {
-    color: mix(@color, black, 15%);
-    background: fade(@account-color, 20%);
-    border-radius: 3px;
-  }
 
   &:disabled {
     opacity: .5;

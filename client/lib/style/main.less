@@ -167,8 +167,7 @@ iframe.js {
     }
 
     &.disabled .notification-toggle {
-      background: @welcome-color;
-      .touchable-bg(@welcome-color);
+      .bg-and-touchable(@welcome-color);
       .button-icon('../../res/notifications-disabled.svg', 15px);
     }
 
@@ -281,6 +280,8 @@ iframe.js {
 
       .touchable-custom({
         background: fade(white, 75%);
+      }, {
+        background: fade(white, 75%);
       });
 
       body:not(.touch) &:hover {
@@ -361,10 +362,7 @@ iframe.js {
     margin-top: -8px;
     padding: 10px;
     text-align: left;
-    background: fade(@manager-color, 45%);
-    .touchable-custom({
-      background: @manager-color;
-    });
+    .touchable-bg-custom(fade(@manager-color, 45%), @manager-color);
 
     &.selected {
       background: fade(@manager-color, 75%);
@@ -393,10 +391,7 @@ iframe.js {
     margin-top: -8px;
     padding: 10px;
     text-align: left;
-    background: fade(@topic-color, 15%);
-    .touchable-custom({
-      background: fade(@topic-color, 30%);
-    });
+    .touchable-bg-custom(fade(@topic-color, 15%), fade(@topic-color, 30%));
 
     .inner {
       color: @topic-color;
@@ -504,10 +499,7 @@ iframe.js {
     .account-button {
       flex: 1;
       padding: 10px;
-      background: fade(@account-color, 7%);
-      .touchable-custom({
-        background: fade(@account-color, 18%);
-      });
+      .touchable-bg-custom(fade(@account-color, 7%), fade(@account-color, 18%));
       overflow: hidden;
 
       &.signed-in {
@@ -1013,13 +1005,12 @@ iframe.js {
 
   .update-available {
     position: relative;
-    background: @welcome-color;
     border-radius: 3px;
     padding: 3px 6px;
     margin-left: 10px;
     z-index: 3;
     .button-icon('../../res/update.svg', 14px, 0);
-    .touchable-bg(@welcome-color);
+    .bg-and-touchable(@welcome-color);
     .larger-touch-target(5px, 10px);
   }
 
@@ -1076,21 +1067,18 @@ iframe.js {
       .larger-touch-target(10px, 10px);
 
       &.public {
-        background: @public-color;
-        .touchable-bg(@public-color);
+        .bg-and-touchable(@public-color);
       }
 
       &.private {
-        background: @passcode-color;
         color: darken(@passcode-color, 60%);
-        .touchable-bg(@passcode-color);
+        .bg-and-touchable(@passcode-color);
         .button-icon('../../res/lock.svg', 10px);
       }
 
       &.pm {
-        background: @pm-color;
         color: darken(@pm-color, 80%);
-        .touchable-bg(@pm-color);
+        .bg-and-touchable(@pm-color);
         .button-icon('../../res/lock.svg', 10px);
       }
 
@@ -1100,6 +1088,8 @@ iframe.js {
         font-weight: bold;
         .touchable-custom({
           filter: brightness(65%);
+        }, {
+          filter: brightness(35%);
         });
         animation: pulse 2s ease infinite;
         @keyframes pulse {
@@ -1130,6 +1120,8 @@ iframe.js {
       .hex {
         transition: all 0s ease;
       }
+    }, {
+      .bgcolor(mix(@manager-color, @manager-dark-color));
     });
 
     .hex {
@@ -1157,6 +1149,8 @@ iframe.js {
       .bgcolor(@manager-dark-color);
       .touchable-custom({
         .bgcolor(darken(desaturate(@manager-dark-color, 35%), 15%));
+      }, {
+        .bgcolor(mix(@manager-dark-color, darken(desaturate(@manager-dark-color, 35%), 15%)));
       });
     }
   }
@@ -1240,6 +1234,8 @@ iframe.js {
     &, &.focus-target {
       .touchable-custom({
         background: fade(@topic-color, 15%);
+      }, {
+        background: fade(@topic-color, 7%);
       });
     }
 
@@ -1354,6 +1350,8 @@ iframe.js {
 
       .touchable-custom({
         filter: brightness(65%);
+      }, {
+        filter: brightness(35%);
       });
       .larger-touch-target(10px, 10px);
 
@@ -1513,15 +1511,13 @@ iframe.js {
         }
 
         .approve {
-          background: #e0ffe0;
           color: #008000;
-          .touchable-bg(#e0ffe0);
+          .bg-and-touchable(fade(#0f0, 15%));
         }
 
         .disapprove {
-          background: #ffe0e0;
           color: #800000;
-          .touchable-bg(#ffe0e0);
+          .bg-and-touchable(fade(#f00, 15%));
         }
 
         .approved {
@@ -1573,9 +1569,8 @@ iframe.js {
           z-index: 20;
           color: white;
           box-shadow: 0 0 3px fade(black, 25%);
-          background: #999;
           user-select: none;
-          .touchable-bg(#999);
+          .bg-and-touchable(#999);
         }
 
         &.touching  > .expand, body:not(.touch) &:active > .expand {
@@ -1854,6 +1849,8 @@ iframe.js {
         &:before {
           opacity: 1;
         }
+      }, {
+        background: fade(lighten(@topic-color, 47%), 50);
       });
       .larger-touch-target(15px, 30px);
       box-shadow: 0 0 4px 1px fade(black, 50%);
@@ -1989,13 +1986,12 @@ iframe.js {
 .update-button {
   margin: 10px;
   float: right;
-  background: @welcome-color;
   border: 1px solid darken(@welcome-color, 30%);
   border-radius: 3px;
   padding: 6px 8px;
   font-size: .8em;
   .button-icon('../../res/update.svg', 24px, 8px);
-  .touchable-bg(@welcome-color);
+  .bg-and-touchable(@welcome-color);
   box-shadow: 0 0 8px fade(black, 25%);
 
   p {
