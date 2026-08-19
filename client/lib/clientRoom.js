@@ -227,7 +227,7 @@ export default function clientRoom() {
         }
       }, false)
 
-      Heim.addEventListener(uiwindow, 'keypress', (ev) => {
+      Heim.addEventListener(uidocument, 'keypress', (ev) => {
         if (!uiwindow.getSelection().isCollapsed) {
           return
         }
@@ -249,7 +249,7 @@ export default function clientRoom() {
         }
       }, true)
 
-      Heim.addEventListener(uiwindow, 'keydown', (originalEv) => {
+      Heim.addEventListener(uidocument, 'keydown', (originalEv) => {
         Heim.activity.touch(roomName)
 
         // dig into React a little so it normalizes the event (namely ev.key).
@@ -269,7 +269,7 @@ export default function clientRoom() {
         }
       }, false)
 
-      Heim.addEventListener(uiwindow, 'keyup', (originalEv) => {
+      Heim.addEventListener(uidocument, 'keyup', (originalEv) => {
         const ev = new SyntheticKeyboardEvent(null, null, originalEv)
         if (ev.key === 'Tab') {
           Heim.tabPressed = false
@@ -277,22 +277,22 @@ export default function clientRoom() {
       })
 
       // helpers for catching those pesky mouse-escaped-window-and-released cases
-      Heim.addEventListener(uiwindow, 'mouseup', (ev) => Heim.ui.globalMouseUp(ev), false)
-      Heim.addEventListener(uiwindow, 'mousemove', (ev) => Heim.ui.globalMouseMove(ev), false)
+      Heim.addEventListener(uidocument, 'mouseup', (ev) => Heim.ui.globalMouseUp(ev), false)
+      Heim.addEventListener(uidocument, 'mousemove', (ev) => Heim.ui.globalMouseMove(ev), false)
 
       if (Heim.isTouch) {
         uidocument.body.classList.add('touch')
 
-        Heim.addEventListener(uiwindow, 'touchstart', (ev) => {
+        Heim.addEventListener(uidocument, 'touchstart', (ev) => {
           Heim.activity.touch(roomName)
           ev.target.classList.add('touching')
         }, false)
 
-        Heim.addEventListener(uiwindow, 'touchend', (ev) => {
+        Heim.addEventListener(uidocument, 'touchend', (ev) => {
           ev.target.classList.remove('touching')
         }, false)
       } else {
-        Heim.addEventListener(uiwindow, 'mousedown', () => Heim.activity.touch(roomName), false)
+        Heim.addEventListener(uidocument, 'mousedown', () => Heim.activity.touch(roomName), false)
       }
 
       Heim.setFavicon = _.partial(require('./util/setFavicon').default, uidocument)

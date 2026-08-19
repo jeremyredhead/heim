@@ -21,12 +21,12 @@ module.exports = createReactClass({
       ReactDOM.findDOMNode(this).showModal()
     }
     setImmediate(() => {
-      Heim.addEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+      Heim.addEventListener(uidocument, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
     })
   },
 
   componentWillUnmount() {
-    Heim.removeEventListener(uiwindow, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
+    Heim.removeEventListener(uidocument, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
   },
 
   onOutsideClick(ev) {
