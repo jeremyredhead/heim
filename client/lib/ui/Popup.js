@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
-module.exports = createReactClass({
+export default createReactClass({
   displayName: 'Popup',
 
   propTypes: {
