@@ -3,7 +3,7 @@ import React from 'react'
 import { MainPage, FancyLogo, FauxMessage, links } from './common'
 import heimURL from '../lib/heim/heimURL'
 
-module.exports = (
+export default (
   <MainPage title="About Euphoria" className="about">
     <div className="primary">
       <h1>What's Euphoria?</h1>

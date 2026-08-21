@@ -8,7 +8,7 @@ import { HeimNav, MainPage, Markdown, links } from './common'
 // "git" in the unlikely case that this project will ever transition to another VCS, it's fine.
 const goImport = links.heimGoPackage + ' git ' + links.heimSourceRepo + ' server'
 
-module.exports = (
+export default (
   <MainPage title="Euphoria: Open Source" meta={<meta name="go-import" content={goImport} />} nav={<HeimNav selected="opensource" />}>
     <Markdown className="text-page opensource" content={fs.readFileSync(__dirname + '/heim.md', 'utf8')} />
   </MainPage>

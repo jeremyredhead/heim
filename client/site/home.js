@@ -3,7 +3,7 @@ import React from 'react'
 import { MainPage, FancyLogo } from './common'
 import heimURL from '../lib/heim/heimURL'
 
-module.exports = (
+export default (
   /* eslint-disable react/jsx-no-target-blank */
   <MainPage title="Euphoria!" className="welcome">
     <div className="splash">

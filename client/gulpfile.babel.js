@@ -306,7 +306,7 @@ gulp.task('site-templates', ['heim-git-commit'], () => {
   ]
 
   return merge(_.map(pages, (name) => {
-    const html = page.render(reload('./site/' + name))
+    const html = page.render(reload('./site/' + name).default)
     return gfile(name + '.html', html, {src: true})
   }))
     .pipe(gulp.dest(heimPagesDest))
@@ -319,7 +319,7 @@ gulp.task('email-templates', () => {
   const emails = ['welcome', 'room-invitation', 'room-invitation-welcome', 'verification', 'password-changed', 'password-reset']
 
   const htmls = merge(_.map(emails, (name) => {
-    const html = renderEmail(reload('./emails/' + name))
+    const html = renderEmail(reload('./emails/' + name).default)
     return gfile(name + '.html', html, {src: true})
   }))
 
