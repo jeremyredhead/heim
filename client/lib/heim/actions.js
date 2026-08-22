@@ -1,6 +1,7 @@
+import _ from 'lodash'
 import Reflux from 'reflux'
 
-module.exports = Reflux.createActions([
+const actions = Reflux.createActions([
   'sendMessage',
   'loadMoreLogs',
   'refreshUsers',
@@ -11,12 +12,13 @@ module.exports = Reflux.createActions([
   'joinRoom',
   'embedMessage',
 ])
+_.extend(module.exports, actions)
 
 // sync so that we initialize room name / storage in the load tick
-module.exports.setup.sync = true
+actions.setup.sync = true
 
 // sync so that chatEntry can pass its state off to tentativeNick immediately after calling setNick
-module.exports.setNick.sync = true
+actions.setNick.sync = true
 
 // sync so that embed components can react quickly to events
-module.exports.embedMessage.sync = true
+actions.embedMessage.sync = true
