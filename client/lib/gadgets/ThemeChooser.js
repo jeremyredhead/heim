@@ -169,7 +169,7 @@ export const ThemeChooserDialog = createReactClass({
           ))}
         </div>
         <hr className="separator" />
-        <CheckBox checked={this.state.settings.get('showAllReplies')} onChange={this.onShowAllReplies}>Show all replies</CheckBox>
+        <CheckBox checked={this.state.settings.get('showAllReplies') || false} onChange={this.onShowAllReplies}>Show all replies</CheckBox>
       </Bubble>
     )
   },
