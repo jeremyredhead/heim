@@ -8,7 +8,7 @@ window.Raven = Raven
 Raven.config(process.env.SENTRY_ENDPOINT, {
   release: process.env.HEIM_RELEASE,
   tags: {git_commit: process.env.HEIM_GIT_COMMIT},
-  autoBreadcrumbs: {console: false},
+  autoBreadcrumbs: {xhr: false, console: false, dom: false, location: false},
 }).addPlugin(consolePlugin).install()
 
 // Hack: After Raven is done with it, requestAnimationFrame stops working
