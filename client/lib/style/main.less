@@ -2077,6 +2077,8 @@ iframe.js {
   user-select: none;
 
   &.native {
+    width: (415px + 2 * @dialog-padding);
+    padding: 0;
     margin: auto;
 
     &:not([open]) {
@@ -2084,9 +2086,15 @@ iframe.js {
     }
 
     &::backdrop {
+      // We apply our own shade.
       opacity: 0;
-      pointer-events: none;
     }
+  }
+
+  &.native .popup-content {
+    display: flex;
+    flex-direction: column;
+    padding: @dialog-padding;
   }
 
   .spacer {

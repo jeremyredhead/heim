@@ -10,15 +10,26 @@ export default createReactClass({
   propTypes: {
     kind: PropTypes.string,
     className: PropTypes.string,
+    onClick: PropTypes.func,
+    onInnerClick: PropTypes.func,
     onDismiss: PropTypes.func,
     children: PropTypes.node,
   },
 
   componentDidMount() {
+    const node = ReactDOM.findDOMNode(this)
     if (this.props.kind === 'native') {
-      ReactDOM.findDOMNode(this).show()
+      try {
+        node.show()
+      } catch (e) {
+        node.setAttribute('open', '')
+      }
     } else if (this.props.kind === 'native-modal') {
-      ReactDOM.findDOMNode(this).showModal()
+      try {
+        node.showModal()
+      } catch (e) {
+        node.setAttribute('open', '')
+      }
     }
     setImmediate(() => {
       Heim.addEventListener(uidocument, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
@@ -39,8 +50,8 @@ export default createReactClass({
     const isNative = this.props.kind === 'native' || this.props.kind === 'native-modal'
     return React.createElement(
       isNative ? 'dialog' : 'div',
-      {className: classNames('popup', isNative && 'native', this.props.className)},
-      this.props.children,
+      {className: classNames('popup', isNative && 'native', this.props.className), tabIndex: -1, onClick: this.props.onClick},
+      isNative ? <div className="popup-content" onClick={this.props.onInnerClick}>{this.props.children}</div> : this.props.children,
     )
   },
 })
