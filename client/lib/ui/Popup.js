@@ -31,9 +31,7 @@ export default createReactClass({
         node.setAttribute('open', '')
       }
     }
-    setImmediate(() => {
-      Heim.addEventListener(uidocument, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
-    })
+    Heim.addEventListener(uidocument, Heim.isTouch ? 'touchstart' : 'click', this.onOutsideClick, false)
   },
 
   componentWillUnmount() {
