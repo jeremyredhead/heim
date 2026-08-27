@@ -5,6 +5,7 @@ import Reflux from 'reflux'
 
 import accountSettingsFlow from '../stores/accountSettingsFlow'
 import chat from '../stores/chat'
+import AutofocusMixin from './AutofocusMixin'
 import Dialog from './Dialog'
 import { Form, TextField, FieldLabelContainer, PasswordStrengthField } from './forms'
 import { validateEmail, validatePassword, minPasswordEntropy } from './formValidators'
@@ -20,6 +21,7 @@ export default createReactClass({
   mixins: [
     Reflux.connect(chat.store, 'chat'),
     Reflux.connect(accountSettingsFlow.store, 'flow'),
+    AutofocusMixin,
   ],
 
   getInitialState() {
@@ -91,7 +93,6 @@ export default createReactClass({
             label="new account name"
             tabIndex={1}
             onModify={this.onEditNewName}
-            autoFocus
           />
           <FieldLabelContainer key="new-nick-preview" label="preview">
             <div className="field-action-box nick-preview">
@@ -108,7 +109,7 @@ export default createReactClass({
             <div className="action-line">
               <div className="spacer" />
               <button type="button" tabIndex="3" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="2" className="register major-action" autoFocus>change <span className="long">account </span>name</button>
+              <button type="submit" tabIndex="2" className="register major-action">change <span className="long">account </span>name</button>
             </div>
           </div>
         </Form>
@@ -128,7 +129,6 @@ export default createReactClass({
             inputType="email"
             tabIndex={1}
             spellCheck={false}
-            autoFocus
           />
           <TextField
             name="password"
@@ -142,7 +142,7 @@ export default createReactClass({
             <div className="action-line">
               <div className="spacer" />
               <button type="button" tabIndex="4" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="3" className="register major-action" autoFocus>change email<span className="long"> address</span></button>
+              <button type="submit" tabIndex="3" className="register major-action">change email<span className="long"> address</span></button>
             </div>
           </div>
         </Form>
@@ -155,7 +155,7 @@ export default createReactClass({
           <div className="notice">{flow.step === 'verify-email-sent' ? 'ok! we\'ve sent you a verification email.' : 'ok! we\'ve sent you a password reset email.'}</div>
           <div className="bottom">
             <div className="action-line centered">
-              <button type="button" tabIndex="1" className="continue major-action" onClick={accountSettingsFlow.openSettings} autoFocus>continue</button>
+              <button type="button" tabIndex="1" className="continue major-action" onClick={accountSettingsFlow.openSettings}>continue</button>
             </div>
           </div>
         </div>
@@ -176,7 +176,6 @@ export default createReactClass({
             action="forgot?"
             onAction={accountSettingsFlow.resetPassword}
             tabIndex={1}
-            autoFocus
           />
           <PasswordStrengthField
             name="newPassword"
@@ -210,7 +209,7 @@ export default createReactClass({
                 }
               </div>
               <div className="spacer" />
-              <button type="button" tabIndex="1" className="major-secondary-action" onClick={this.openChangeName} autoFocus>change<span className="long"> name</span></button>
+              <button type="button" tabIndex="1" className="major-secondary-action" onClick={this.openChangeName}>change<span className="long"> name</span></button>
             </div>
           </FieldLabelContainer>
           <FieldLabelContainer label="email address">

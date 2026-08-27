@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import Reflux from 'reflux'
 
 import accountAuthFlow from '../stores/accountAuthFlow'
+import AutofocusMixin from './AutofocusMixin'
 import Dialog from './Dialog'
 import { Form, CheckField, TextField, PasswordStrengthField, ErrorMessage } from './forms'
 import { validateEmail, validatePassword, minPasswordEntropy } from './formValidators'
@@ -19,6 +20,7 @@ export default createReactClass({
 
   mixins: [
     Reflux.connect(accountAuthFlow.store, 'flow'),
+    AutofocusMixin,
   ],
 
   onRegisterClick() {
@@ -159,7 +161,6 @@ export default createReactClass({
             label="email address"
             tabIndex={1}
             spellCheck={false}
-            autoFocus
           />
           {passwordField}
           {bottom}
