@@ -108,8 +108,8 @@ export default createReactClass({
           <div className="bottom">
             <div className="action-line">
               <div className="spacer" />
-              <button type="button" tabIndex="3" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="2" className="register major-action">change <span className="long">account </span>name</button>
+              <button type="button" tabIndex={3} className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
+              <button type="submit" tabIndex={2} className="register major-action">change <span className="long">account </span>name</button>
             </div>
           </div>
         </Form>
@@ -141,8 +141,8 @@ export default createReactClass({
           <div className="bottom">
             <div className="action-line">
               <div className="spacer" />
-              <button type="button" tabIndex="4" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="3" className="register major-action">change email<span className="long"> address</span></button>
+              <button type="button" tabIndex={4} className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
+              <button type="submit" tabIndex={3} className="register major-action">change email<span className="long"> address</span></button>
             </div>
           </div>
         </Form>
@@ -155,7 +155,7 @@ export default createReactClass({
           <div className="notice">{flow.step === 'verify-email-sent' ? 'ok! we\'ve sent you a verification email.' : 'ok! we\'ve sent you a password reset email.'}</div>
           <div className="bottom">
             <div className="action-line centered">
-              <button type="button" tabIndex="1" className="continue major-action" onClick={accountSettingsFlow.openSettings}>continue</button>
+              <button type="button" tabIndex={1} className="continue major-action" onClick={accountSettingsFlow.openSettings}>continue</button>
             </div>
           </div>
         </div>
@@ -187,8 +187,8 @@ export default createReactClass({
           <div className="bottom">
             <div className="action-line">
               <div className="spacer" />
-              <button type="button" tabIndex="4" className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
-              <button type="submit" tabIndex="3" className="register major-action">change <span className="long">account </span>password</button>
+              <button type="button" tabIndex={4} className="minor-secondary-action" onClick={accountSettingsFlow.openSettings}>back<span className="long"> to settings</span></button>
+              <button type="submit" tabIndex={3} className="register major-action">change <span className="long">account </span>password</button>
             </div>
           </div>
         </Form>
@@ -197,8 +197,8 @@ export default createReactClass({
       title = 'account settings'
       dialogContent = (
         <Form {...formParams}>
-          <div className="account-state">you're signed into your account. <button type="button" tabIndex="4" className="sign-out minor-secondary-action" onClick={accountSettingsFlow.logout}>sign out</button></div>
-          {!accountEmailVerified && <div className="not-verified">your email is not verified. <button type="button" tabIndex="4" className="resend-verify minor-secondary-action" onClick={accountSettingsFlow.resendVerifyEmail}>re-send email</button></div>}
+          <div className="account-state">you're signed into your account. <button type="button" tabIndex={4} className="sign-out minor-secondary-action" onClick={accountSettingsFlow.logout}>sign out</button></div>
+          {!accountEmailVerified && <div className="not-verified">your email is not verified. <button type="button" tabIndex={4} className="resend-verify minor-secondary-action" onClick={accountSettingsFlow.resendVerifyEmail}>re-send email</button></div>}
           <FieldLabelContainer label="account name">
             <div className="field-action-box">
               <div className="inner">
@@ -209,18 +209,18 @@ export default createReactClass({
                 }
               </div>
               <div className="spacer" />
-              <button type="button" tabIndex="1" className="major-secondary-action" onClick={this.openChangeName}>change<span className="long"> name</span></button>
+              <button type="button" tabIndex={1} className="major-secondary-action" onClick={this.openChangeName}>change<span className="long"> name</span></button>
             </div>
           </FieldLabelContainer>
           <FieldLabelContainer label="email address">
             <div className="field-action-box">
               <div className="inner">{account.get('email')}</div>
               <div className="spacer" />
-              {false && <button type="button" tabIndex="2" className="major-secondary-action" onClick={accountSettingsFlow.openChangeEmail}>change<span className="long"> email</span></button>}
+              {false && <button type="button" tabIndex={2} className="major-secondary-action" onClick={accountSettingsFlow.openChangeEmail}>change<span className="long"> email</span></button>}
             </div>
           </FieldLabelContainer>
           <FieldLabelContainer label="password">
-            <button type="button" tabIndex="3" className="major-secondary-action" onClick={accountSettingsFlow.openChangePassword}>change <span className="long">account </span>password</button>
+            <button type="button" tabIndex={3} className="major-secondary-action" onClick={accountSettingsFlow.openChangePassword}>change <span className="long">account </span>password</button>
             {flow.passwordChanged && <span className="password-changed">saved</span>}
           </FieldLabelContainer>
         </Form>
