@@ -9,13 +9,7 @@ import clientResetPassword from './clientResetPassword'
 window.uiwindow = window.top
 window.uidocument = window.top.document
 
-let tag = document.getElementById('heim-js')
-if (!tag) {
-  // FIXME: fallback to ease update. remove once heim-js id is rolled out for a while.
-  const scripts = document.getElementsByTagName('script')
-  tag = scripts[scripts.length - 1]
-}
-
+const tag = document.getElementById('heim-js')
 const entrypoint = tag.getAttribute('data-entrypoint')
 if (!entrypoint) {
   clientRoom()
