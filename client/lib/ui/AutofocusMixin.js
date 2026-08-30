@@ -1,24 +1,6 @@
 import ReactDOM from 'react-dom'
 
-class Box {
-  constructor(value = null) {
-    this.value = value
-  }
-
-  update(newValue) {
-    if (newValue === this.value) {
-      return false
-    }
-    this.value = newValue
-    return true
-  }
-}
-
 export default {
-  getInitialState() {
-    return {prevFlowStep: new Box()}
-  },
-
   componentDidMount() {
     this.checkAutofocus()
   },
@@ -29,9 +11,10 @@ export default {
 
   checkAutofocus() {
     const step = this.state.flow.step
-    if (!this.state.prevFlowStep.update(step)) {
+    if (step === this._prevFlowStep) {
       return
     }
+    this._prevFlowStep = step
     this.applyAutofocus()
   },
 
