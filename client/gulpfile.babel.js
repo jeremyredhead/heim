@@ -410,4 +410,11 @@ gulp.task('serve-embed', serve({
   },
 }))
 
-gulp.task('develop', ['serve-heim', 'serve-embed', 'default'])
+gulp.task('develop', ['serve-heim', 'serve-embed', 'default'], () => {
+  // "gulp develop" by itself seems to ignore SIGINT, give it a little push.
+  process.on('SIGINT', () => {
+    console.log('Received SIGINT, exiting...')
+    process.exit(0)
+  })
+  log(doColor(colors.green, 'Heim frontend dev server ready!'))
+})
