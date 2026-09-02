@@ -114,55 +114,55 @@ is in reply to.
 
 Here is an example [send](#send) command sent from a client to the server:
 
-```
+```json
 {
- "id": "1",
- "type": "send",
- "data": {
-  "content": "hello world!"
- }
+  "id": "1",
+  "type": "send",
+  "data": {
+    "content": "hello world!"
+  }
 }
 ```
 
 In response, the server will send back a [send-reply](#send):
 
-```
+```json
 {
- "id": "1",
- "type": "send-reply",
- "data": {
-  "id": "00gd6yy9hvksg",
-  "time": 1418585715,
-  "sender": {
-   "id": "agent:4da8fa7375215589",
-   "name": "logan",
-   "server_id": "heim.1",
-   "server_era": "00g5fdwjzl91c",
-   "session_id": "4da8fa7375215589-00000246"
-  },
-  "content": "hello world!"
- }
+  "id": "1",
+  "type": "send-reply",
+  "data": {
+    "id": "00gd6yy9hvksg",
+    "time": 1418585715,
+    "sender": {
+      "id": "agent:4da8fa7375215589",
+      "name": "logan",
+      "server_id": "heim.1",
+      "server_era": "00g5fdwjzl91c",
+      "session_id": "4da8fa7375215589-00000246"
+    },
+    "content": "hello world!"
+  }
 }
 ```
 
 The server will also send a [send-event](#send-event) to all the other sessions connected
 to the same room:
 
-```
+```json
 {
- "type": "send-event",
- "data": {
-  "id": "00gd6yy9hvksg",
-  "time": 1418585715,
-  "sender": {
-   "id": "agent:4da8fa7375215589",
-   "name": "logan",
-   "server_id": "heim.1",
-   "server_era": "00g5fdwjzl91c",
-   "session_id": "4da8fa7375215589-00000246"
-  },
-  "content": "hello world!"
- }
+  "type": "send-event",
+  "data": {
+    "id": "00gd6yy9hvksg",
+    "time": 1418585715,
+    "sender": {
+      "id": "agent:4da8fa7375215589",
+      "name": "logan",
+      "server_id": "heim.1",
+      "server_era": "00g5fdwjzl91c",
+      "session_id": "4da8fa7375215589-00000246"
+    },
+    "content": "hello world!"
+  }
 }
 ```
 
@@ -171,24 +171,24 @@ to the same room:
 When a client connects to the websocket for a room, the server will begin the session
 with a [ping-event](#ping-event):
 
-```
+```json
 {
- "type": "ping-event",
- "data": {
-  "time": 1428979816,
-  "next": 1428979846
- }
+  "type": "ping-event",
+  "data": {
+    "time": 1428979816,
+    "next": 1428979846
+  }
 }
 ```
 
 The client should immediately reply with the same timestamp:
 
-```
+```json
 {
- "type": "ping-reply",
- "data": {
-  "time": 1428979816
- }
+  "type": "ping-reply",
+  "data": {
+    "time": 1428979816
+  }
 }
 ```
 
@@ -196,15 +196,15 @@ Once the client replies to the ping, one of two possible events will be sent nex
 If the room is a public room, or if the client is logged into an account that has
 been granted access to the room, then the server will send a [snapshot-event](#snapshot-event):
 
-```
+```json
 {
-  type: "snapshot-event",
-  data: {
-    identity: "agent:4da8fa7375215589",
-    session_id: "4da8fa7375215589-00000246",
-    version: "801ea89a4e410b11410eb61c91971439904e66c0",
-    listing: [...],
-    log: [...]
+  "type": "snapshot-event",
+  "data": {
+    "identity": "agent:4da8fa7375215589",
+    "session_id": "4da8fa7375215589-00000246",
+    "version": "801ea89a4e410b11410eb61c91971439904e66c0",
+    "listing": [...],
+    "log": [...]
   }
 }
 ```
