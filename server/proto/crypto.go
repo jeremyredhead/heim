@@ -44,6 +44,7 @@ func DecryptPayload(payload interface{}, auth *Authorization, level PrivilegeLev
 			msg.Log[i] = dm.(Message)
 		}
 		return msg, nil
+	// JRF-TODO: probably need to add a branch here for EditMessageReply and EditMessageEvent?
 	default:
 		return msg, nil
 	}
@@ -92,6 +93,7 @@ func DecryptMessage(msg Message, auths map[string]*security.ManagedKey, level Pr
 		msg.Sender.ClientAddress = ""
 	}
 
+	// WTF? why does it return early if the message is truncated?
 	if msg.EncryptionKeyID == "" || msg.Truncated {
 		return msg, nil
 	}

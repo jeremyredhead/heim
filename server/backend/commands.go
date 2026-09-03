@@ -950,6 +950,7 @@ func (s *session) handleStaffCreateRoomCommand(cmd *proto.StaffCreateRoomCommand
 }
 
 func (s *session) handleEditMessageCommand(msg *proto.EditMessageCommand) *response {
+	// JRF-TODO: we might need to make edits here
 	if s.client.Account == nil || s.client.Authorization.ManagerKeyPair == nil {
 		return &response{err: proto.ErrAccessDenied}
 	}

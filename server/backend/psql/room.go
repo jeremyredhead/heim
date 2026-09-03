@@ -256,12 +256,30 @@ func (rb *RoomBinding) EditMessage(
 		return reply, proto.ErrEditInconsistent
 	}
 
+	previous_edit_id := msg.PreviousEditID
+	previous_content := msg.Content
+
+	// FIXME: WRONG SESSION!! we are passed a proto.Session, but the code this was plucked from is grabbing fields of a backend.session struct!!
+	// since backend.session is (I believe) private, we'll need to either add some functions/"methods" to proto.Session and implement them in backend.session.
+	// just not sure whether to add a function to get the Authorization and privilegeLevel(), or a function which calls DecryptPayload for us, or some other configuration/structuring...
+	if msg.EncryptionKeyID.Valid && msg.EncryptionKeyID.String != "" {
+		payload, err := proto.DecryptPayload(msg.ToBackend(), &session.client.Authorization, session.privilegeLevel())
+		if err != nil {
+			rollback(ctx, t)
+			return reply, err
+		}
+		msg.Content = payload.Content
+		// FIXME: we need to get all the sender data (for transmission; not needed for the SQL query), but it's a pain...
+		// should we just unpack all the fields manually (ugh), or abuse psql.NewMessage? (but then we'll need to stash a copy of .PreviousEditID and .Deleted, which are not retained by NewMessage)
+//		msg.??? = payload.Sender
+	}
+
 	entry := &MessageEditLog{
 		EditID:          editID.String(),
 		Room:            rb.RoomName,
 		MessageID:       edit.ID.String(),
-		PreviousEditID:  msg.PreviousEditID,
-		PreviousContent: msg.Content,
+		PreviousEditID:  msg.PreviousEditID, // FIXME
+		PreviousContent: previous_content,
 		PreviousParent: sql.NullString{
 			String: msg.Parent,
 			Valid:  true,
@@ -284,7 +302,22 @@ func (rb *RoomBinding) EditMessage(
 	args := []interface{}{rb.RoomName, edit.ID.String(), now, editID.String()}
 	msg.Edited = gorp.NullTime{Valid: true, Time: now}
 	if edit.Content != "" {
-		args = append(args, edit.Content)
+		payload := msg.ToBackend()
+		payload.Content = edit.Content
+
+		s := session // FIXME: even ignoring possible copy-by-value issues, won't work b/c .client and .keyID are private fields of backend.session not part of the proto.Session interface; see comment above about that problem
+		if s.keyID != "" {
+			key := s.client.Authorization.MessageKeys[s.keyID]
+			if err := proto.EncryptMessage(&payload, s.keyID, key); err != nil {
+				rollback(ctx, t)
+				return reply, err
+			}
+			args = append(args, payload.EncryptionKeyID)
+			sets = append(sets, fmt.Sprintf("encryption_key_id = $%d", len(args)))
+			msg.EncryptionKeyID = payload.EncryptionKeyID
+		}
+
+		args = append(args, payload.Content)
 		sets = append(sets, fmt.Sprintf("content = $%d", len(args)))
 		msg.Content = edit.Content
 	}
