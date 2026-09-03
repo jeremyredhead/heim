@@ -70,16 +70,7 @@ func (s *session) joinedState(cmd *proto.Packet) *response {
 	case *proto.SendCommand:
 		return s.handleSendCommand(msg)
 	case *proto.GetMessageCommand:
-		ret, err := s.room.GetMessage(s.ctx, msg.ID)
-		if err != nil {
-			return &response{err: err}
-		}
-		packet, err := proto.DecryptPayload(proto.GetMessageReply(*ret), &s.client.Authorization, s.privilegeLevel())
-		return &response{
-			packet: packet,
-			err:    err,
-			cost:   1,
-		}
+		return s.handleGetMessageCommand(msg)
 	case *proto.LogCommand:
 		msgs, err := s.room.Latest(s.ctx, msg.N, msg.Before)
 		if err != nil {
@@ -256,6 +247,32 @@ func (s *session) handleSendCommand(cmd *proto.SendCommand) *response {
 		err:    err,
 		cost:   10,
 	}
+}
+
+func (s *session) handleGetMessageCommand(cmd *proto.GetMessageCommand) *response {
+		ret, err := s.room.GetMessage(s.ctx, cmd.ID)
+		if err != nil {
+			return &response{err: err}
+		}
+		if !time.Time(ret.Deleted).IsZero() {
+			if s.privilegeLevel() == proto.General {
+				ret.Content = ""
+				ret.Sender = proto.SessionView{
+					IdentityView: proto.IdentityView{ID: ret.Sender.ID},
+					SessionID:    ret.Sender.SessionID,
+				}
+				return &response{
+					packet: proto.GetMessageReply(*ret),
+					cost: 1,
+				}
+			}
+		}
+		packet, err := proto.DecryptPayload(proto.GetMessageReply(*ret), &s.client.Authorization, s.privilegeLevel())
+		return &response{
+			packet: packet,
+			err:    err,
+			cost:   1,
+		}
 }
 
 func (s *session) handleGrantAccessCommand(cmd *proto.GrantAccessCommand) *response {

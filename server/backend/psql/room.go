@@ -126,7 +126,7 @@ func (rb *RoomBinding) GetMessage(ctx scope.Context, id snowflake.Snowflake) (*p
 	// TODO: Allow managers to retrieve the previous_edit_id for undeletion?
 	// TODO: Allow everyone to retrieve the parent for tree reconstruction?
 	err = rb.DbMap.SelectOne(&msg,
-		fmt.Sprintf("SELECT %s FROM message WHERE room = $1 AND id = $2 AND deleted IS NULL", cols),
+		fmt.Sprintf("SELECT %s FROM message WHERE room = $1 AND id = $2", cols),
 		rb.RoomName, id.String())
 	if err != nil {
 		if err == sql.ErrNoRows {
